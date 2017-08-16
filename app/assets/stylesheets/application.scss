@@ -16,3 +16,29 @@
 
  @import "bootstrap-sprockets";
  @import "bootstrap";
+
+/* h tags */
+ h1, h2, h3, h4, h5, h6 { 
+	line-height: 1;
+}
+
+h1 {
+	font-size: 3em; 
+	letter-spacing: -2px; 
+	margin-bottom: 30px; 
+	text-align: center;
+}
+
+/* h tags end */
+
+/* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+.row.content {height: 800px}
+    
+/* Set gray background color and 100% height */
+.photos-content {
+  background-color: #f1f1f1;
+  height: 100%;
+}
+    
+/* Set black background color, white text and some padding */
+
