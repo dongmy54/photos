@@ -1,6 +1,6 @@
 class PhotosController < ApplicationController
   def index
-    @photo = Photo.find(2)
+    @photos = Photo.all
   end
 
   def new

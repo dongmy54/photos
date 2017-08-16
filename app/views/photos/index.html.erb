@@ -13,9 +13,13 @@
     </div>
   
 
-  <div class="col-sm-9 photos-content">
-    <h3>photos in family</h3>
-    <%= image_tag(@photo.image.medium.url, class: "thumbnail") %>
+    <div class="col-sm-9 photos-content">
+      <h3>photos in family</h3>
+        <%= @photos.each do |photo| %>
+          <div id="photo-<%= photo.id %>" class="col-md-4">
+            <%= image_tag( photo.image.thumb.url, class: "thumbnail") %>
+          </div>
+        <% end %>
+    </div>
   </div>
-</div>
 
