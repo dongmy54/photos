@@ -31,9 +31,7 @@ class PhotosController < ApplicationController
   end
 
   def children
-    #select_photo("children")
-    @photos = Photo.where(tag: "children").paginate(:page => params[:page], :per_page => 6)
-    render :index
+    select_photo("children")
   end
 
   private
@@ -43,6 +41,7 @@ class PhotosController < ApplicationController
 
     def select_photo(tag)
       @photos = Photo.where(tag: tag).paginate(:page => params[:page], :per_page => 6)
+      @tag = tag
       render :index
     end
 end

@@ -1,0 +1,4 @@
+str = "<%=j render :partial => "photos_list", :locals => { :photos => @photos } %>";
+$(".photos-list").html(str);
+title = '<h3 id="title">photos in <%= @tag %></h3>'
+$("#title").html(title)

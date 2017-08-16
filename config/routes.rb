@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  root 'welcome#index'
+  root 'photos#index'
   resources :photos do
     collection do
-      get :empty
+      get "empty" => "photos#empty"
       get :family
       get :animals
       get :children
