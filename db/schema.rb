@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170816013232) do
+ActiveRecord::Schema.define(version: 20170816231508) do
 
   create_table "photos", force: :cascade do |t|
     t.string   "image"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20170816013232) do
     t.string   "tag",        default: "empty"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.index ["tag"], name: "index_photos_on_tag"
   end
 
 end
