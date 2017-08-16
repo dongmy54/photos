@@ -42,3 +42,34 @@ h1 {
     
 /* Set black background color, white text and some padding */
 
+/* 产品索引 */
+.pro-index img {
+  border: 1px solid #787878;
+}
+.pro-index-font {
+  font-size: 14px;
+}
+
+.pro-index-font:link{
+  color: #787878;
+}
+
+.bg-index {
+  width: 1200px;
+  height: 40px;
+  margin: 20px auto;
+}
+
+.bg-index-button {
+  float: left;
+  width: 80px;
+  margin-right: 10px;
+  font-size: 18px;
+  height: 40px;
+  background: #F0F0F0;
+}
+
+.btn-info {
+
+}
+/* 分页 */

@@ -4,10 +4,10 @@
       <h4>Tags</h4>
       <br>
       <ul class="nav nav-pills nav-stacked">
-        <li><%= link_to "Untag"    , '#' , class: "btn" %></li>
-        <li><%= link_to "Family"   , '#' , class: "btn" %></li>
-        <li><%= link_to "Animals"  , '#' , class: "btn" %></li>
-        <li><%= link_to "Children" , '#' , class: "btn" %></li>
+        <li><%= link_to "Untag"    , empty_photos_path    , class: "btn" %></li>
+        <li><%= link_to "Family"   , family_photos_path   , class: "btn" %></li>
+        <li><%= link_to "Animals"  , animals_photos_path  , class: "btn" %></li>
+        <li><%= link_to "Children" , children_photos_path , class: "btn" %></li>
       </ul><br><br>
       <%= link_to "Upload Photo", new_photo_path , class: "btn btn-lg btn-info btn-block" %>
     </div>
@@ -15,11 +15,19 @@
 
     <div class="col-sm-9 photos-content">
       <h3>photos in family</h3>
-        <%= @photos.each do |photo| %>
+        <% @photos.each do |photo| %>
           <div id="photo-<%= photo.id %>" class="col-md-4">
-            <%= image_tag( photo.image.thumb.url, class: "thumbnail") %>
+            <%= image_tag(photo.image.thumb.url, class: "thumbnail") %>
+            <p><strong>Title:</strong> <%= photo.title %></p>
+            <p><strong>Date:</strong>  <%= photo.updated_at.strftime("%Y/%m/%d") %></p>
+            <p><strong>Tag:</strong>   <%= photo.tag %></p>
           </div>
         <% end %>
+
+        <div class="text-center">
+          <%= will_paginate @photos %>
+        </div> 
     </div>
+    
   </div>
 
