@@ -9,12 +9,13 @@
         <li><%= link_to "Animals"  , '#' , class: "btn" %></li>
         <li><%= link_to "Children" , '#' , class: "btn" %></li>
       </ul><br><br>
-      <%= link_to "Upload Photo", '#' , class: "btn btn-lg btn-info btn-block" %>
+      <%= link_to "Upload Photo", new_photo_path , class: "btn btn-lg btn-info btn-block" %>
     </div>
   
 
   <div class="col-sm-9 photos-content">
     <h3>photos in family</h3>
+    <%= image_tag(@photo.image.medium.url, class: "thumbnail") %>
   </div>
 </div>
 
