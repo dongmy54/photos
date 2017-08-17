@@ -18,6 +18,17 @@ class PhotosController < ApplicationController
     end
   end
 
+  def update
+    @photo = Photo.find(params[:id])
+    if @photo.update(photo_params)
+      tag = @photo.tag
+      select_photo(tag)
+      flash[:notice] = "恭喜您！#{@photo.title}标签属性编辑成功。"
+    else
+      render :js => "alert('亲，#{params[:photo][:tag]}是无效标签，标签只能为 empty/family/animals/children,请重新修改');"
+    end
+  end
+
   def empty
     select_photo("empty")
   end

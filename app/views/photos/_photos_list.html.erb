@@ -5,7 +5,7 @@
             <%= image_tag(photo.image.thumb.url, class: "thumbnail") %>
             <p><strong>Title:</strong> <%= photo.title %></p>
             <p><strong>Date:</strong>  <%= photo.updated_at.strftime("%Y/%m/%d") %></p>
-            <p><strong>Tag:</strong>   <%= photo.tag %></p>
+           <strong>Tag:</strong><%= dynaspan_text_field(photo, :tag) %>
           </div>
         <% end %>
 

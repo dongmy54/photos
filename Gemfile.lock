@@ -66,6 +66,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
+    dynaspan (0.1.5)
     erubis (2.7.0)
     excon (0.55.0)
     execjs (2.7.0)
@@ -329,6 +330,7 @@ DEPENDENCIES
   byebug
   carrierwave
   coffee-rails (~> 4.2)
+  dynaspan
   figaro
   fog
   jbuilder (~> 2.5)
