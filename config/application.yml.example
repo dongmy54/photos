@@ -11,28 +11,21 @@
 #   stripe_publishable_key: pk_live_9lcthxpSIHbGwmdO941O1XVU
 
 production:
-    AWS_ACCESS_KEY_ID: "AKIAIUOXR6P2GAPCGSTQ"  # 你的 Access key ID
+   qiniu_access_key: xxxx  # 你的 qiniu AccessKey
 
-    AWS_SECRET_ACCESS_KEY: "5YwdF5kIQ4Qrb/09v//DW4qUKT4ZDdPiTSjKiBlq"  # 你的 Secret access key
+   qiniu_secret_key: xxxx  # 你的 qiniu SecretKey
 
-    AWS_REGION: "ap-northeast-1"  # 你的 S3 bucket 的 Region 位置
+   qiniu_bucket: xxxx  # 你的 qiniu bucket
 
-    AWS_BUCKET_NAME: "fullstack01"  # 你设定的 bucket name
-    
-    SEND_CLOUD_USER_NAME: "dongmingyan_test_IHhzEq"  # 你的 API_USER
-
-    SEND_CLOUD_USER_KEY: "DB25evkW7mphABRC"  # 你的 API_KEY 
+   qiniu_bucket_domain: xxxx  # 你的 qiniu bucket domain
 
 
-development:
-    AWS_ACCESS_KEY_ID: "AKIAIUOXR6P2GAPCGSTQ"  # 你的 Access key ID
 
-    AWS_SECRET_ACCESS_KEY: "5YwdF5kIQ4Qrb/09v//DW4qUKT4ZDdPiTSjKiBlq"  # 你的 Secret access key
+ development:
+   qiniu_access_key: xxxx  # 你的 qiniu AccessKey
 
-    AWS_REGION: "ap-northeast-1"  # 你的 S3 bucket 的 Region 位置
+   qiniu_secret_key: xxxx  # 你的 qiniu SecretKey
 
-    AWS_BUCKET_NAME: "fullstack01"  # 你设定的 bucket name
+   qiniu_bucket: xxxx  # 你的 qiniu bucket
 
-    SEND_CLOUD_USER_NAME: "dongmingyan_test_IHhzEq"  # 你的 API_USER
-
-    SEND_CLOUD_USER_KEY: "DB25evkW7mphABRC"  # 你的 API_KEY 
+   qiniu_bucket_domain: xxxx  # 你的 qiniu bucket domain
