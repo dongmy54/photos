@@ -1,4 +1,7 @@
-str = "<%=j render :partial => "photos_list", :locals => { :photos => @photos } %>";
-$(".photos-list").html(str);
-title = '<h3 id="title">photos in <%= @tag %></h3>'
-$("#title").html(title)
+$(".photos-list .col-md-4").remove();
+<% if @photos.present? %>
+  <%= render 'photos_present' %>
+  <% else %>
+  $(".photos-list #title").html('<%= @tag %>下暂无图片');
+<% end %>
+            

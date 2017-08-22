@@ -20,12 +20,14 @@ class PhotosController < ApplicationController
 
   def update
     @photo = Photo.find(params[:id])
-    if @photo.update(photo_params)
-      tag = @photo.tag
-      select_photo(tag)
+    @tag = params[:tag]
+    if @tag != @photo.tag
+      @photo.update!(:tag => @tag)
+      @diff = true
     else
-      render :js => "alert('亲，#{params[:photo][:tag]}是无效标签，标签只能为 empty/family/animals/children,请重新编辑，谢谢！');"
+      @diff = false 
     end
+
   end
 
   def empty

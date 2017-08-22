@@ -4,15 +4,159 @@
       <h4>Tags</h4>
       <br>
       <ul class="nav nav-pills nav-stacked">
-        <li><%= link_to "Untag"    , empty_photos_path    , remote: true,class: "btn" %></li>
-        <li><%= link_to "Family"   , family_photos_path   , remote: true,class: "btn" %></li>
-        <li><%= link_to "Animals"  , animals_photos_path  , remote: true,class: "btn" %></li>
-        <li><%= link_to "Children" , children_photos_path , remote: true, class: "btn" %></li>
+        <li><%= link_to "Untag"    , empty_photos_path    , remote: true, class: "btn", id: "untag" %></li>
+        <li><%= link_to "Family"   , family_photos_path   , remote: true, class: "btn", id: "family" %></li>
+        <li><%= link_to "Animals"  , animals_photos_path  , remote: true, class: "btn", id: "animals" %></li>
+        <li><%= link_to "Children" , children_photos_path , remote: true, class: "btn", id: "children" %></li>
       </ul><br><br>
       <%= link_to "Upload Photo", new_photo_path , class: "btn btn-lg btn-info btn-block" %>
     </div>
-  
-    <%= render "photos_list" , :photos => @photos %>
     
+    <div class="col-sm-9 photos-list">
+     <h3 id="title">All pictures</h3>
+        <% @photos.each do |photo| %>
+          <%= render "photos_list" , :photo => photo %>
+        <% end %>
+    </div>
+    
+    <%= render partial: "paginate", locals: {:photos => @photos} %>
+
   </div>
+
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <style >
+   .drag-and-drog {
+    opacity: 0.5;
+    box-shadow:2px 12px 22px 1px #333;
+   }
+  </style>
+
+  <script>
+    var tag1 = "untag", tag2 = "family", tag3 = "animals", tag4 = "children";
+
+    $( ".photo-source" ).draggable({
+        helper: "clone",
+        revert: true,
+        opacity: 0.4,
+        start: function(evt,ui) {
+          $(this).addClass("drag-and-drog");
+        },
+        stop: function(evt,ui) {
+          $(this).removeClass("drag-and-drog");
+        }
+       
+    });
+  
+    $( "#untag" ).droppable({
+      
+      over: function(event,ui) {
+        $( this ).html('<h3>将图片加入untag</h3>' );
+      },
+
+      out: function(event,ui) {
+        $( this ).html( tag1 );
+      },
+
+      drop: function(event,ui) {
+        $( this ).html( tag1 );
+        var url = ui.draggable.data("url");
+        console.log(url);
+        $.ajax({
+          beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+          data: "tag=" + "empty",
+          url: url,
+          method: 'PUT',
+          dataType: "script",
+          success:function(){
+          initDraggable($(".photo-source"));
+          }
+        })
+      }
+    });
+
+    $( "#family" ).droppable({
+      
+      over: function(event,ui) {
+        $( this ).html( "<h3>将图片加入family</h3>" );
+      },
+
+      out: function(event,ui) {
+        $( this ).html( tag2 );
+      },
+
+      drop: function(event,ui) {
+        $( this ).html( tag2 );
+        var url = ui.draggable.data("url");
+        console.log(url);
+        $.ajax({
+          beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+          data: "tag=" + tag2,
+          url: url,
+          method: 'PUT',
+          dataType: "script",
+          success:function(){
+          initDraggable($(".photo-source"));
+          }
+        })
+      }
+    });
+
+    $( "#animals" ).droppable({
+      
+      over: function(event,ui) {
+        $( this ).html( "<h3>将图片加入animals</h3>" );
+      },
+
+      out: function(event,ui) {
+        $( this ).html( tag3 );
+      },
+
+      drop: function(event,ui) {
+        $( this ).html( tag3 );
+        var url = ui.draggable.data("url");
+        console.log(url);
+        $.ajax({
+          beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+          data: "tag=" + tag3,
+          url: url,
+          method: 'PUT',
+          dataType: "script",
+          success:function(){
+          initDraggable($(".photo-source"));
+          }
+        })
+      }
+    });
+
+    $( "#children" ).droppable({
+      
+      over: function(event,ui) {
+        $( this ).html( "<h3>将图片加入children</h3>" );
+      },
+
+      out: function(event,ui) {
+        $( this ).html( tag4 );
+      },
+
+      drop: function(event,ui) {
+        $( this ).html( tag4 );
+        var url = ui.draggable.data("url");
+        console.log(url);
+        $.ajax({
+          beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+          data: "tag=" + tag4,
+          url: url,
+          method: 'PUT',
+          dataType: "script",
+          success:function(){
+          initDraggable($(".photo-source"));
+          }
+        })
+      }
+    });
+
+  </script>
 

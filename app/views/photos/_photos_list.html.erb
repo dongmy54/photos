@@ -1,15 +1,8 @@
-    <div class="col-sm-9 photos-list">
-      <h3 id="title">All pictures</h3>
-        <% photos.each do |photo| %>
-          <div id="photo-<%= photo.id %>" class="col-md-4">
-            <%= image_tag(photo.image.thumb.url, class: "thumbnail") %>
-            <p><strong>Title:</strong> <%= photo.title %></p>
-            <p><strong>Date:</strong>  <%= photo.updated_at.strftime("%Y/%m/%d") %></p>
-           <strong>Tag:</strong><%= dynaspan_text_field(photo, :tag) %>
-          </div>
-        <% end %>
+ <div  class="col-md-4" id="photo-<%= photo.id %>">
+	<%= image_tag(photo.image.thumb.url, class: "img-rounded photo-source",  data: { :url => photo_path(photo)} ) %>
+	<p><strong>Title:</strong> <%= photo.title %></p>
+	<p><strong>Date:</strong>  <%= photo.updated_at.strftime("%Y/%m/%d") %></p>
+	<p><strong>Tag:</strong>   <%= photo.tag %></p>
+</div>
 
-        <div class="text-center">
-          <%= will_paginate photos,:class => 'sy-pagination',:previous_label => '<',:next_label => '>',renderer: BootstrapPagination::Rails %>
-        </div> 
-    </dmiv>
+        

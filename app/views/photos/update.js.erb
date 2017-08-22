@@ -1,0 +1,5 @@
+<% if @diff %>
+	$("#photo-<%= @photo.id %>").remove();
+<% else %>
+	alert('本次加入标签无效，它们属于同一个标签');
+<% end %>
