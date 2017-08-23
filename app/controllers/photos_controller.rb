@@ -21,13 +21,11 @@ class PhotosController < ApplicationController
   def update
     @photo = Photo.find(params[:id])
     @tag = params[:tag]
-    if @tag != @photo.tag
-      @photo.update!(:tag => @tag)
-      @diff = true
+    if tag_valid?(@tag, @photo) && @photo.update!(tag: @tag)
+      @finish = true
     else
-      @diff = false 
+      @finish = false
     end
-
   end
 
   def empty
@@ -56,4 +54,14 @@ class PhotosController < ApplicationController
       @tag = tag
       render :index
     end
+
+    def tag_valid?(tag,photo)
+      valid_tag = %w[empty family animals children]
+      if valid_tag.include?(tag) && (tag != photo.tag)
+        true
+      else
+        false
+      end
+    end
+
 end

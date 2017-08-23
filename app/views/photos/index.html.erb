@@ -3,7 +3,7 @@
     <div class="col-sm-3">
       <h4>Tags</h4>
       <br>
-      <ul class="nav nav-pills nav-stacked">
+      <ul class="nav nav-pills nav-stacked" id="photo-target">
         <li><%= link_to "Untag"    , empty_photos_path    , remote: true, class: "btn", id: "untag" %></li>
         <li><%= link_to "Family"   , family_photos_path   , remote: true, class: "btn", id: "family" %></li>
         <li><%= link_to "Animals"  , animals_photos_path  , remote: true, class: "btn", id: "animals" %></li>
@@ -35,6 +35,7 @@
   </style>
 
   <script>
+    
     var tag1 = "untag", tag2 = "family", tag3 = "animals", tag4 = "children";
 
     $( ".photo-source" ).draggable({
@@ -49,9 +50,10 @@
         }
        
     });
+
+    
   
-    $( "#untag" ).droppable({
-      
+    $( "#untag" ).droppable({ 
       over: function(event,ui) {
         $( this ).html('<h3>将图片加入untag</h3>' );
       },
@@ -63,22 +65,17 @@
       drop: function(event,ui) {
         $( this ).html( tag1 );
         var url = ui.draggable.data("url");
-        console.log(url);
         $.ajax({
           beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
           data: "tag=" + "empty",
           url: url,
           method: 'PUT',
           dataType: "script",
-          success:function(){
-          initDraggable($(".photo-source"));
-          }
         })
       }
     });
 
-    $( "#family" ).droppable({
-      
+    $( "#family" ).droppable({  
       over: function(event,ui) {
         $( this ).html( "<h3>将图片加入family</h3>" );
       },
@@ -90,22 +87,17 @@
       drop: function(event,ui) {
         $( this ).html( tag2 );
         var url = ui.draggable.data("url");
-        console.log(url);
         $.ajax({
           beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
           data: "tag=" + tag2,
           url: url,
           method: 'PUT',
           dataType: "script",
-          success:function(){
-          initDraggable($(".photo-source"));
-          }
         })
       }
     });
 
     $( "#animals" ).droppable({
-      
       over: function(event,ui) {
         $( this ).html( "<h3>将图片加入animals</h3>" );
       },
@@ -117,22 +109,17 @@
       drop: function(event,ui) {
         $( this ).html( tag3 );
         var url = ui.draggable.data("url");
-        console.log(url);
         $.ajax({
           beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
           data: "tag=" + tag3,
           url: url,
           method: 'PUT',
           dataType: "script",
-          success:function(){
-          initDraggable($(".photo-source"));
-          }
         })
       }
     });
 
-    $( "#children" ).droppable({
-      
+    $( "#children" ).droppable({  
       over: function(event,ui) {
         $( this ).html( "<h3>将图片加入children</h3>" );
       },
@@ -144,18 +131,39 @@
       drop: function(event,ui) {
         $( this ).html( tag4 );
         var url = ui.draggable.data("url");
-        console.log(url);
         $.ajax({
           beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
           data: "tag=" + tag4,
           url: url,
           method: 'PUT',
           dataType: "script",
-          success:function(){
-          initDraggable($(".photo-source"));
-          }
         })
       }
+    });
+
+    //通过文本框修改图片标签
+    $(".photos-list").on('mouseover',".source",function(){
+      $(this).next().css('visibility','visible');
+      $(this).css('visibility','hidden');
+      $(this).next().insertBefore($(this));
+    });
+
+    $(".photos-list").on('mouseleave',".input-tag",function(){
+      $(this).next().insertBefore($(this));
+      $(this).prev().css('visibility','visible');
+      $(this).css('visibility','hidden');
+    });
+
+    $(".photos-list").on('blur',".input-tag",function(){
+      var url = $(this).find('input').attr("href");
+      var tag = $(this).find('input').val(); 
+      $.ajax({
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+        data: "tag=" + tag,
+        url: url,
+        method: 'PUT',
+        dataType: "script",
+      })
     });
 
   </script>

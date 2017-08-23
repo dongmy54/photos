@@ -12,12 +12,22 @@ draggable_opts = {
     };
 
 <% @photos.each do |photo| %>
-  image = $('<%= image_tag(photo.image.thumb.url, class: "img-rounded photo-source",  data: { :url => photo_path(photo)} ) %>').draggable(draggable_opts);
-  $(".photos-list").append( '<div  class="col-md-4" id="photo-<%= photo.id %>"></div>');
+  div   = '<div  class="col-md-4" id="photo-<%= photo.id %>"></div>'
+
+  image = $('<%= image_tag(photo.image.thumb.url, class: "img-rounded photo-source",\
+            data: { :url => photo_path(photo)} ) %>').draggable(draggable_opts);
+
+  descr = '<p><strong>Title:</strong> <%= photo.title %></p>\
+           <p><strong>Date:</strong> <%= photo.updated_at.strftime("%Y/%m/%d") %></p>\
+           <p class="source"><strong>Tag:</strong>  <%= photo.tag %></p></div>\
+           <P class="input-tag" style="visibility: hidden"><strong>Tag:</strong>\
+                                <input type="text" name="tag" value="<%= photo.tag %>" \
+                                                              href="<%= photo_path(photo) %>"</P>';
+  
+  $(".photos-list").append(div);
 	$(".photos-list .col-md-4").last().append(image);
-	$(".photos-list .col-md-4").last().append('<p><strong>Title:</strong> <%= photo.title %></p><p><strong>Date:</strong>  <%= photo.updated_at.strftime("%Y/%m/%d") %></p><p><strong>Tag:</strong>  <%= photo.tag %></p></div>');
+	$(".photos-list .col-md-4").last().append(descr);
 <% end %>
 
 $(".photos-list #title").html('photos in <%= @photos.first.tag %>');
-
 $(".paginate").html('<%=j render partial: "paginate", locals: {:photos => @photos} %>');

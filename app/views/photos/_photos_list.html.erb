@@ -2,7 +2,13 @@
 	<%= image_tag(photo.image.thumb.url, class: "img-rounded photo-source",  data: { :url => photo_path(photo)} ) %>
 	<p><strong>Title:</strong> <%= photo.title %></p>
 	<p><strong>Date:</strong>  <%= photo.updated_at.strftime("%Y/%m/%d") %></p>
-	<p><strong>Tag:</strong>   <%= photo.tag %></p>
+	<p class="source">
+		<strong>Tag:</strong>   <%= photo.tag %>
+	</p>
+	
+	<P class="input-tag" style="visibility: hidden"><!--这里必须用这个css(visbility)属性，便于jq实现显示／隐藏 -->
+		<strong>Tag:</strong> <input type="text" name="tag" value="<%= photo.tag %>" href="<%= photo_path(photo) %>" >
+	</P>
 </div>
 
         
