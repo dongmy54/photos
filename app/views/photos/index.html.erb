@@ -1,3 +1,18 @@
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+<style >
+.drag-and-drog {
+  opacity: 0.5;
+  box-shadow:2px 12px 22px 1px #333;
+}
+
+.font-change {
+  font-size: 1.5em;
+}
+</style>
+
+
 <h1>Photos展示页</h1>
  <div class="row content">
     <div class="col-sm-3">
@@ -24,19 +39,8 @@
   </div>
 
 
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-  <style >
-   .drag-and-drog {
-    opacity: 0.5;
-    box-shadow:2px 12px 22px 1px #333;
-   }
-  </style>
 
   <script>
-    
-    var tag1 = "untag", tag2 = "family", tag3 = "animals", tag4 = "children";
 
     $( ".photo-source" ).draggable({
         helper: "clone",
@@ -51,89 +55,31 @@
        
     });
 
-    
-  
-    $( "#untag" ).droppable({ 
+    // 图片拖拽上传
+    $( "#untag, #family, #animals, #children" ).droppable({
       over: function(event,ui) {
-        $( this ).html('<h3>将图片加入untag</h3>' );
+        var tag = $(this).attr("id");
+        $( this ).html('将图片加入' + tag);
+        $(this).addClass('font-change');  
       },
 
       out: function(event,ui) {
-        $( this ).html( tag1 );
+        var tag = $(this).attr("id");
+        $( this ).html( tag );
+        $(this).removeClass('font-change'); 
       },
 
       drop: function(event,ui) {
-        $( this ).html( tag1 );
+        var tag = $(this).attr("id");
+        $( this ).html( tag );
+        $(this).removeClass('font-change'); 
+        if (tag == "untag") {
+          tag = "empty";
+        }
         var url = ui.draggable.data("url");
         $.ajax({
           beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-          data: "tag=" + "empty",
-          url: url,
-          method: 'PUT',
-          dataType: "script",
-        })
-      }
-    });
-
-    $( "#family" ).droppable({  
-      over: function(event,ui) {
-        $( this ).html( "<h3>将图片加入family</h3>" );
-      },
-
-      out: function(event,ui) {
-        $( this ).html( tag2 );
-      },
-
-      drop: function(event,ui) {
-        $( this ).html( tag2 );
-        var url = ui.draggable.data("url");
-        $.ajax({
-          beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-          data: "tag=" + tag2,
-          url: url,
-          method: 'PUT',
-          dataType: "script",
-        })
-      }
-    });
-
-    $( "#animals" ).droppable({
-      over: function(event,ui) {
-        $( this ).html( "<h3>将图片加入animals</h3>" );
-      },
-
-      out: function(event,ui) {
-        $( this ).html( tag3 );
-      },
-
-      drop: function(event,ui) {
-        $( this ).html( tag3 );
-        var url = ui.draggable.data("url");
-        $.ajax({
-          beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-          data: "tag=" + tag3,
-          url: url,
-          method: 'PUT',
-          dataType: "script",
-        })
-      }
-    });
-
-    $( "#children" ).droppable({  
-      over: function(event,ui) {
-        $( this ).html( "<h3>将图片加入children</h3>" );
-      },
-
-      out: function(event,ui) {
-        $( this ).html( tag4 );
-      },
-
-      drop: function(event,ui) {
-        $( this ).html( tag4 );
-        var url = ui.draggable.data("url");
-        $.ajax({
-          beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-          data: "tag=" + tag4,
+          data: "tag=" + tag,
           url: url,
           method: 'PUT',
           dataType: "script",
