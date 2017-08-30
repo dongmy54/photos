@@ -1,6 +1,7 @@
 class PhotosController < ApplicationController
   def index
     @photos = Photo.all.paginate(:page => params[:page], :per_page => 6)
+    @tags = %w[Untag Family Animals Children]
   end
 
   def new
@@ -21,11 +22,7 @@ class PhotosController < ApplicationController
   def update
     @photo = Photo.find(params[:id])
     @tag = params[:tag]
-    if tag_valid?(@tag, @photo) && @photo.update!(tag: @tag)
-      @finish = true
-    else
-      @finish = false
-    end
+    @finish = tag_valid?(@tag, @photo) && @photo.update!(tag: @tag)
   end
 
   def empty
@@ -44,9 +41,10 @@ class PhotosController < ApplicationController
     select_photo("children")
   end
 
+
   private
     def photo_params
-      params.require(:photo).permit( :image, :title, :tag)
+      params.require(:photo).permit(:image, :title, :tag)
     end
 
     def select_photo(tag)
@@ -57,11 +55,7 @@ class PhotosController < ApplicationController
 
     def tag_valid?(tag,photo)
       valid_tag = %w[empty family animals children]
-      if valid_tag.include?(tag) && (tag != photo.tag)
-        true
-      else
-        false
-      end
+      valid_tag.include?(tag) && (tag != photo.tag)
     end
 
 end

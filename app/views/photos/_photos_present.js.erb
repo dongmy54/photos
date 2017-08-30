@@ -17,7 +17,7 @@ draggable_opts = {
   image = $('<%= image_tag(photo.image.thumb.url, class: "img-rounded photo-source",\
             data: { :url => photo_path(photo)} ) %>').draggable(draggable_opts);
 
-  descr = '<p><strong>Title:</strong> <%= photo.title %></p>\
+  descr = '<p class="title"><strong>Title:</strong> <%= photo.title %></p>\
            <p><strong>Date:</strong> <%= photo.updated_at.strftime("%Y/%m/%d") %></p>\
            <p class="source"><strong>Tag:</strong>  <%= photo.tag %></p></div>\
            <P class="input-tag" style="visibility: hidden"><strong>Tag:</strong>\
