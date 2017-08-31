@@ -48,7 +48,7 @@ h1 {
 }
 
 .btn-group-vertical {
-  width: 80%;    /* 调整标签显示宽度 */
+  width: 80%;             /* 调整标签显示宽度 */
   margin-left: 1.8em;
 }
 
@@ -61,6 +61,16 @@ h1 {
 
 .photo-source:hover {
   transform: scale(1.1);    /* 触碰图片放大效果 */
+}
+
+.drag-and-drog {
+  opacity: 0.5;             /* 拖拽jq效果 */
+  box-shadow:2px 12px 22px 1px #333;
+}
+
+.font-change {
+  font-size: 1.5em;        /* 拖拽到标签效果 */
+  color: darkblue;
 }
 
 

@@ -3,8 +3,7 @@
   <head>
     <title>Photos</title>
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>  
   </head>
 
   <body>
@@ -15,5 +14,8 @@
       <%= debug(params) if Rails.env.development? %>
       <%= render "common/footer" %>
     </div>
+
+    <%= javascript_include_tag 'application' %><%= javascript_include_tag 'application' %>
+    <%= yield :handwrite_javascript %>
   </body>
 </html>

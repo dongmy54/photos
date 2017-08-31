@@ -29,65 +29,80 @@
 
 
 <!-- =============== jq部分 =================== -->
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  
-<style >
-.drag-and-drog {
-  opacity: 0.5;
-  box-shadow:2px 12px 22px 1px #333;
-}
-
-.font-change {
-  font-size: 1.5em;
-  color: darkblue;
-}
-</style>
+<% content_for :handwrite_javascript do %>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+                                               <!-- content_for需要包住script外部链接 -->
+  <script>
+    $(document).ready(function(){
+      // 让选中标签时，处于激活状态
+      $(".btn-group-vertical .btn").click(function(){
+        $(this).addClass("active").siblings().removeClass("active");
+      });
 
 
-<script>
-  $(document).ready(function(){
-    // 让选中标签时，处于激活状态
-    $(".btn-group-vertical .btn").click(function(){
-      $(this).addClass("active").siblings().removeClass("active");
-    });
+      // 图片拖拽上传
+      $( ".photo-source" ).draggable({     //定义拖拽对象
+          helper: "clone",
+          revert: true,
+          opacity: 0.4,
+          start: function(evt,ui) {
+            $(this).addClass("drag-and-drog");
+          },
+          stop: function(evt,ui) {
+            $(this).removeClass("drag-and-drog");
+          }
+         
+      });
 
-
-    // 图片拖拽上传
-    $( ".photo-source" ).draggable({     //定义拖拽对象
-        helper: "clone",
-        revert: true,
-        opacity: 0.4,
-        start: function(evt,ui) {
-          $(this).addClass("drag-and-drog");
+      $( "#untag, #family, #animals, #children" ).droppable({   //定义接受拖拽体
+        over: function(event,ui) {
+          var tag = $(this).attr("id");
+          $( this ).html('将图片加入' + tag);
+          $(this).addClass('font-change');  
         },
-        stop: function(evt,ui) {
-          $(this).removeClass("drag-and-drog");
+
+        out: function(event,ui) {
+          var tag = $(this).attr("id");
+          $( this ).html( tag );
+          $(this).removeClass('font-change'); 
+        },
+
+        drop: function(event,ui) {
+          var tag = $(this).attr("id");
+          $( this ).html( tag );
+          $(this).removeClass('font-change'); 
+          if (tag == "untag") {
+            tag = "empty";
+          }
+          var url = ui.draggable.data("url");
+          $.ajax({
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            data: "tag=" + tag,
+            url: url,
+            method: 'PUT',
+            dataType: "script",
+          })
         }
-       
-    });
+      });
 
-    $( "#untag, #family, #animals, #children" ).droppable({   //定义接受拖拽体
-      over: function(event,ui) {
-        var tag = $(this).attr("id");
-        $( this ).html('将图片加入' + tag);
-        $(this).addClass('font-change');  
-      },
 
-      out: function(event,ui) {
-        var tag = $(this).attr("id");
-        $( this ).html( tag );
-        $(this).removeClass('font-change'); 
-      },
+      //通过文本框修改图片标签
+      $(".photos-list").on('mouseover',".source",function(){
+        $(this).next().css('visibility','visible');
+        $(this).css('visibility','hidden');
+        $(this).next().insertBefore($(this));
+      });
 
-      drop: function(event,ui) {
-        var tag = $(this).attr("id");
-        $( this ).html( tag );
-        $(this).removeClass('font-change'); 
-        if (tag == "untag") {
-          tag = "empty";
-        }
-        var url = ui.draggable.data("url");
+      $(".photos-list").on('mouseleave',".input-tag",function(){
+        $(this).next().insertBefore($(this));
+        $(this).prev().css('visibility','visible');
+        $(this).css('visibility','hidden');
+      });
+
+      $(".photos-list").on('blur',".input-tag",function(){
+        var url = $(this).find('input').attr("href");
+        var tag = $(this).find('input').val(); 
         $.ajax({
           beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
           data: "tag=" + tag,
@@ -95,34 +110,7 @@
           method: 'PUT',
           dataType: "script",
         })
-      }
-    });
-
-
-    //通过文本框修改图片标签
-    $(".photos-list").on('mouseover',".source",function(){
-      $(this).next().css('visibility','visible');
-      $(this).css('visibility','hidden');
-      $(this).next().insertBefore($(this));
-    });
-
-    $(".photos-list").on('mouseleave',".input-tag",function(){
-      $(this).next().insertBefore($(this));
-      $(this).prev().css('visibility','visible');
-      $(this).css('visibility','hidden');
-    });
-
-    $(".photos-list").on('blur',".input-tag",function(){
-      var url = $(this).find('input').attr("href");
-      var tag = $(this).find('input').val(); 
-      $.ajax({
-        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-        data: "tag=" + tag,
-        url: url,
-        method: 'PUT',
-        dataType: "script",
-      })
-    });
-  })
-</script> 
-
+      });
+    })
+  </script>  <!-- jq结束 -->
+<% end %>
