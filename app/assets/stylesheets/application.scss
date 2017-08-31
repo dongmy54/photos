@@ -32,6 +32,17 @@ h1 {
 	text-align: center;
 }
 
+.col-md-4[id |= "photo"] {
+  text-align: center;
+  border: 1px solid lightgray;
+  margin: 1em 0 0.6em;
+  padding: 1em 1.5em;
+}
+
+[id |= "photo"] p {
+  text-align: left;
+  padding-left: 3.6em;
+}
 
 /* 图片和标签区块
 ----------------------------------------------------- */
