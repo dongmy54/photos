@@ -2,6 +2,7 @@ class PhotosController < ApplicationController
   def index
     @photos = Photo.all.paginate(:page => params[:page], :per_page => 6)
     @tags = %w[Untag Family Animals Children]
+    @come_from_index = true
   end
 
   def new
@@ -51,6 +52,7 @@ class PhotosController < ApplicationController
       @photos = Photo.where(tag: tag).paginate(:page => params[:page], :per_page => 6)
       @tag = tag
       @tags = %w[Untag Family Animals Children]
+      @come_from_index = false
       render :index
     end
 

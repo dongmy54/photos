@@ -29,5 +29,8 @@ draggable_opts = {
 	$(".photos-list .col-md-4").last().append(descr);
 <% end %>
 
-$(".photos-list #title").html('photos in <%= @photos.first.tag %>');
+<% if !@come_from_index %>   //来自index的查询就不替换title文字
+  $(".photos-list #title").html('photos in <%= @tag %>');
+<% end %>
+
 $(".paginate").html('<%=j render partial: "paginate", locals: {:photos => @photos} %>');
