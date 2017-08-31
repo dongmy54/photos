@@ -5,7 +5,7 @@
     <div class="col-sm-3">
       <h4>Tags</h4>
       <br>
-      <div class="btn-group-vertical" id="photo-target">
+      <div class="btn-group-vertical">
         <% @tags.each do |tag| %>
           <%= render_tag_link(tag) %>
         <% end %>
@@ -43,6 +43,16 @@
       $(".btn-group-vertical .btn").click(function(){
         $(this).addClass("active").siblings().removeClass("active");
       });
+     
+
+      // 提示图片放入框中
+      $( ".photos-list" ).on('mouseover',".photo-source",function(){
+        $( ".btn-group-vertical" ).attr("id","photo-target");
+      })
+
+      $( ".photos-list" ).on('mouseout',".photo-source",function(){
+        $( ".btn-group-vertical").removeAttr("id");   //鼠标离开图片移除id
+      })
 
 
       // 图片拖拽上传
@@ -61,6 +71,7 @@
 
       $( "#untag, #family, #animals, #children" ).droppable({   //定义接受拖拽体
         over: function(event,ui) {
+          $( ".btn-group-vertical").removeAttr("id");  // 移除闪烁边框
           var tag = $(this).attr("id");
           $( this ).html('将图片加入' + tag);
           $(this).addClass('font-change');  
@@ -117,6 +128,8 @@
       });
     })
 
+
+    // 为分页按钮添加ajax效果
     $('.pagination a').attr('data-remote', 'true')
   </script>  <!-- jq结束 -->
 <% end %>

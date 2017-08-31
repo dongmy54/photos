@@ -46,16 +46,20 @@ h1 {
 
 /* 图片和标签区块
 ----------------------------------------------------- */
-.row.content {
-  height: 800px;
-}
-
 .title {
  margin-top: 1.1em; 
 }
 
+#photo-target {
+  -webkit-animation: myborder 1s infinite;    /* Safari and Chrome,用infinite设置无线次 */ 
+}
+
+@keyframes myborder {
+  100% {border: 4px solid lightseagreen;}   /* 定义动画 */
+}
+
 .pagination {
-  margin-left: 57.5%;     
+  margin-left: 57.5%;     /* 调整分页按钮位置 */ 
 }
 
 .btn-group-vertical {
@@ -89,8 +93,24 @@ h1 {
 ----------------------------------------------------- */
 .design-content {
   text-align: center;
-  font-weight: 600;
   margin-top: 200px;
 }
 
+
+/* 移动端
+----------------------------------------------------- */
+@media only screen and (max-width: 30em) {
+  .btn-group-vertical {
+    width: 80%;
+  }
+
+  .pagination {
+    margin-left: 7.5em;     /* 调整分页按钮位置 */ 
+  }
+
+  .design-content {
+    margin-top: 4em;
+    }
+
+}
 
