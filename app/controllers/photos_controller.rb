@@ -50,6 +50,7 @@ class PhotosController < ApplicationController
     def select_photo(tag)
       @photos = Photo.where(tag: tag).paginate(:page => params[:page], :per_page => 6)
       @tag = tag
+      @tags = %w[Untag Family Animals Children]
       render :index
     end
 
