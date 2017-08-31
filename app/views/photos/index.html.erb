@@ -22,7 +22,11 @@
         <% end %>
     </div>    <!-- 图片展示结束 -->
     
-    <%= render partial: "paginate", locals: {:photos => @photos} %>
+    <!-- =========== 分页开始 ============= -->
+    <div class="paginate">
+      <%= render partial: "paginate", locals: {:photos => @photos} %>
+    </div>    <!-- 分页结束 -->
+
   </div>
 
 
@@ -112,5 +116,7 @@
         })
       });
     })
+
+    $('.pagination a').attr('data-remote', 'true')
   </script>  <!-- jq结束 -->
 <% end %>

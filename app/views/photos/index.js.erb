@@ -1,7 +1,8 @@
-$(".photos-list .col-md-4").remove();
+$(".photos-list .col-md-4").remove();    
 <% if @photos.present? %>
   <%= render 'photos_present' %>
   <% else %>
   $(".photos-list #title").html('<%= @tag %>下暂无图片');
+  $(".pagination").remove();
 <% end %>
-            
+$('.pagination a').attr('data-remote', 'true');  /* 注意添加ajax的位置 */          
