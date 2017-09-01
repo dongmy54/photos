@@ -17,9 +17,8 @@
     <!-- =========== 图片展示开始 ============ -->
     <div class="col-sm-9 photos-list">
      <h3 id="title">All pictures</h3>
-        <% @photos.each do |photo| %>
-          <%= render "photos_list" , :photo => photo %>
-        <% end %>
+        
+        <%= render :partial => "photos_list", :collection => @photos, :as => :photo %>
     </div>    <!-- 图片展示结束 -->
     
     <!-- =========== 分页开始 ============= -->
