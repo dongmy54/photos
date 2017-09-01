@@ -25,35 +25,20 @@ class PhotosController < ApplicationController
     @tag = params[:tag]
     @finish = tag_valid?(@tag, @photo) && @photo.update!(tag: @tag)
   end
-
-  def empty
-    select_photo("empty")
-  end
-
-  def family
-    select_photo("family")
-  end
-
-  def animals
-    select_photo("animals")
-  end
-
-  def children
-    select_photo("children")
-  end
-
-
-  private
-    def photo_params
-      params.require(:photo).permit(:image, :title, :tag)
-    end
-
-    def select_photo(tag)
+  
+  %w[empty family animals children].each do |tag|       # 动态定义，empty/family/animals/children方法
+    define_method(tag) {
       @photos = Photo.where(tag: tag).paginate(:page => params[:page], :per_page => 6)
       @tag = tag
       @tags = %w[Untag Family Animals Children]
       @come_from_index = false
       render :index
+    }
+  end
+
+  private
+    def photo_params
+      params.require(:photo).permit(:image, :title, :tag)
     end
 
     def tag_valid?(tag,photo)
