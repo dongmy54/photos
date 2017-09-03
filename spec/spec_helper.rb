@@ -15,6 +15,7 @@
 # The `.rspec` file also contains a few flags that are not defaults but that
 # users commonly want.
 require 'capybara/rspec'
+# 发现将上面这行放在 rails_helper.rb 和 spec_helper.rb效果一样
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
