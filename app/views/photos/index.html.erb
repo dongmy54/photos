@@ -6,7 +6,7 @@
       <h4>Tags</h4>
       <br>
       <div class="btn-group-vertical">
-        <% @tags.each do |tag| %>
+        <% tag_list.each do |tag| %>
           <%= render_tag_link(tag) %>
         <% end %>
       </div><br><br>
@@ -27,8 +27,7 @@
 
   </div>
 
-
-
+<% @hu = "ji" %>
 
 <!-- =============== jq部分 =================== -->
 <% content_for :handwrite_javascript do %>
@@ -67,7 +66,7 @@
          
       });
 
-      $( "#untag, #family, #animals, #children" ).droppable({   //定义接受拖拽体
+      $("<%= jq_drop_ids %>").droppable({   //定义接受拖拽体
         over: function(event,ui) {
           $( ".btn-group-vertical").removeAttr("id");  // 移除闪烁边框
           var tag = $(this).attr("id");
@@ -85,9 +84,7 @@
           var tag = $(this).attr("id");
           $( this ).html( tag );
           $(this).removeClass('font-change'); 
-          if (tag == "untag") {
-            tag = "empty";
-          }
+          
           var url = ui.draggable.data("url");
           $.ajax({
             beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},

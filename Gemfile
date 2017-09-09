@@ -42,6 +42,7 @@ gem 'will_paginate-bootstrap'
 gem 'figaro'
 gem 'fog'
 gem 'dynaspan'
+gem 'font-awesome-rails'
 
 
 group :development, :test do

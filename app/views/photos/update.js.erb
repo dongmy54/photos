@@ -1,5 +1,5 @@
-<% if @finish %>
-	$("#photo-<%= @photo.id %>").remove();
+<% if @success %>
+  $("#photo-<%= @photo.id %>").remove();
 <% else %>
 	alert('本次修改标签无效，可能是由于你输入了无效的标签，或未对标签属性做任何改动。');
 <% end %>

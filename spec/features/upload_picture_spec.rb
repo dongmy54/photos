@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 feature 'upload picture', :typer => :feature do
+
+  before do
+    Tag.create(:name => "children")
+  end
   
   scenario "upload picture" do
     visit '/' 

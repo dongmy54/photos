@@ -1,8 +1,7 @@
 class PhotosController < ApplicationController
+  
   def index
     @photos = Photo.all.paginate(:page => params[:page], :per_page => 6)
-    @tags = %w[Untag Family Animals Children]
-    @come_from_index = true
   end
 
   def new
@@ -23,27 +22,34 @@ class PhotosController < ApplicationController
   def update
     @photo = Photo.find(params[:id])
     @tag = params[:tag]
-    @finish = tag_valid?(@tag, @photo) && @photo.update!(tag: @tag)
+    @success = tag_valid?(@tag, @photo) && @photo.update!(tag: @tag)
   end
   
-  %w[empty family animals children].each do |tag|       # 动态定义，empty/family/animals/children方法
+  Tag.pluck(:name).each do |tag|       # 动态定义，empty/family/animals/children方法
     define_method(tag) {
-      @photos = Photo.where(tag: tag).paginate(:page => params[:page], :per_page => 6)
-      @tag = tag
-      @tags = %w[Untag Family Animals Children]
-      @come_from_index = false
+      @photos = filter_photo(tag)
+      @current_tag = tag
       render :index
     }
   end
 
+  def destroy
+    @photo = Photo.find(params[:id])
+    @photo.destroy
+  end
+
   private
+    
     def photo_params
       params.require(:photo).permit(:image, :title, :tag)
     end
 
     def tag_valid?(tag,photo)
-      valid_tag = %w[empty family animals children]
-      valid_tag.include?(tag) && (tag != photo.tag)
+      tag_list.include?(tag) && (tag != photo.tag)
+    end
+
+    def filter_photo(tag)
+      Photo.where(tag: tag).paginate(:page => params[:page], :per_page => 6)
     end
 
 end

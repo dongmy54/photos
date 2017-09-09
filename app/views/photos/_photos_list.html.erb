@@ -5,10 +5,12 @@
 	<p class="source">
 		<strong>Tag:</strong>   <%= photo.tag %>
 	</p>
-	
 	<P class="input-tag" style="visibility: hidden"><!--这里必须用这个css(visbility)属性，便于jq实现显示／隐藏 -->
 		<strong>Tag:</strong> <input type="text" name="tag" value="<%= photo.tag %>" href="<%= photo_path(photo) %>" >
 	</P>
+    
+    <%= delete_photo_trash(photo) %>
+	
 </div>
 
         

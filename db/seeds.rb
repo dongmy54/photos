@@ -5,3 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+# 创建标签
+
+%w[untag family animals children].each do |tag|
+  Tag.create!(name: tag)
+  puts "成功创建#{tag}标签"
+end

@@ -16,7 +16,7 @@
 
  @import "bootstrap-sprockets";
  @import "bootstrap";
-
+ @import "font-awesome";
 
 
 /* 基本标签
@@ -36,7 +36,7 @@ h1 {
   text-align: center;
   border: 1px solid lightgray;
   margin: 1em 0 0.6em;
-  padding: 1em 1.5em;
+  padding: 1em 1.5em 1.2em;
 }
 
 [id |= "photo"] p {
@@ -65,6 +65,19 @@ h1 {
 .btn-group-vertical {
   width: 80%;             /* 调整标签显示宽度 */
   margin-left: 1.8em;
+}
+
+.trash {
+  color: #a6a6a6;             /* 删除图标 */
+  font-size: 1.5em;
+  position: absolute;         /* 利用绝对定位让它脱离文档流 */
+  right: 0.5em;
+  bottom: 1em;
+}
+
+.trash:hover {
+  color: #ff0066; 
+  font-size: 1.8em;
 }
 
 
