@@ -104,9 +104,16 @@ h1 {
 
 /* 页脚
 ----------------------------------------------------- */
+footer {
+  height: 100px;
+  background: rgb(76,76,76); 
+  margin-top: 150px;
+}
+
 .design-content {
+  color: white;
   text-align: center;
-  margin-top: 200px;
+  padding-top: 2.8em;
 }
 
 
