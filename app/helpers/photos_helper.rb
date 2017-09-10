@@ -17,7 +17,8 @@ module PhotosHelper
   end
 
   def delete_photo_trash(photo)
-    link_to photo_path(photo),method: :delete, remote: true do
+    link_to photo_path(photo),method: :delete, remote: true,
+                              data: {confirm: "您确定删除此图吗？"} do
       content_tag(:i, "",:class => ["fa" ,"fa-trash-o", "trash"]) 
     end                                            # 将删除图片图标收纳
   end
